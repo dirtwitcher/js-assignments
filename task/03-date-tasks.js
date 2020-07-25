@@ -22,7 +22,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
 
 /**
@@ -37,9 +37,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   return Date.parse(value);
 }
-
 
 /**
  * Returns true if specified date is leap year and false otherwise
@@ -56,9 +55,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   return new Date(date.getFullYear(), 1, 29).getDate() === 29;
 }
-
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -76,9 +74,21 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
-}
+   
+   let dateStr = new Date(endDate-startDate).toISOString().slice(11,-1);
+   let hours = parseInt(dateStr.slice(0,2));
+   let days = endDate.getDate() - startDate.getDate();
 
+   if ( days > 0 ) {
+      return `${hours+days*24}${dateStr.slice(2)}`;
+   }
+   else if (hours < 10 ){
+      return `0${hours}${dateStr.slice(2)}`;
+   } else {
+      return `${hours}${dateStr.slice(2)}`;
+   }
+      
+}
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the specified Greenwich time.
@@ -94,7 +104,11 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   let hour = (date.getUTCHours() > 12) ? date.getUTCHours() - 12 : date.getUTCHours();
+   let hoursRow = 0.5 * (60 * hour + date.getUTCMinutes());
+   let minutesRow = 6 * date.getUTCMinutes();
+   let diff = (hoursRow - minutesRow > 180) ? hoursRow - minutesRow - 180 : hoursRow - minutesRow;
+   return Math.PI * Math.abs(diff) / 180;
 }
 
 
