@@ -23,9 +23,13 @@
  *    console.log(r.getArea());   // => 200
  */
 function Rectangle(width, height) {
-    throw new Error('Not implemented');
+    this.width = width;
+    this.height = height;
 }
 
+Rectangle.prototype.getArea = function getArea() {
+    return this.width * this.height;
+};
 
 /**
  * Returns the JSON representation of specified object
@@ -38,9 +42,8 @@ function Rectangle(width, height) {
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
-    throw new Error('Not implemented');
+    return JSON.stringify(obj);
 }
-
 
 /**
  * Returns the object of specified type from JSON representation
@@ -54,7 +57,9 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-    throw new Error('Not implemented');
+    let item = JSON.parse(json);
+    Object.setPrototypeOf(item, proto);
+    return item;
 }
 
 
@@ -107,34 +112,105 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
+    nowSelector: [],
+    arrayOfSelectors: [],
+    combinators: [],
+    resultOfCombine: [],
+    prevValue: '',
 
     element: function(value) {
-        throw new Error('Not implemented');
+        if (this.prevValue == 'element') {
+          this.moreOneTimeError();
+        } else if (this.prevValue == 'id' && value != 'img' && value != 'tr') {
+          this.orderError();
+        }
+        this.prevValue = 'element';
+        if (this.nowSelector.length > 0) {
+          this.arrayOfSelectors.push(this.nowSelector.join(''));
+          this.nowSelector = [];
+          this.prevValue = '';
+        }
+        this.nowSelector.push(value);
+        return this;
     },
 
     id: function(value) {
-        throw new Error('Not implemented');
+        if (this.prevValue == 'id') {
+          this.moreOneTimeError();
+        } else if (this.prevValue == 'class' || this.prevValue == 'attr' 
+                || this.prevValue == 'pseudoClass' || this.prevValue == 'pseudoElement') {
+          this.orderError();
+        }
+        this.prevValue = 'id';
+        this.nowSelector.push(`#${value}`);
+        return this;
     },
 
     class: function(value) {
-        throw new Error('Not implemented');
+        if (this.prevValue == 'attr' || this.prevValue == 'pseudoClass') {
+          this.orderError();
+        }
+        this.prevValue = 'class';
+        this.nowSelector.push(`.${value}`);
+        return this;
     },
 
     attr: function(value) {
-        throw new Error('Not implemented');
+        if (this.prevValue == 'pseudoClass') {
+          this.orderError();
+        }
+        this.prevValue = 'attr';
+        this.nowSelector.push(`[${value}]`);
+        return this;
     },
 
     pseudoClass: function(value) {
-        throw new Error('Not implemented');
+        if (this.prevValue == 'pseudoElement') {
+          this.orderError();
+        }
+        this.prevValue = 'pseudoClass';
+        this.nowSelector.push(`:${value}`);
+        return this;
     },
 
     pseudoElement: function(value) {
-        throw new Error('Not implemented');
+        if (this.prevValue == 'pseudoElement') {
+          this.moreOneTimeError();
+        }
+        this.prevValue = 'pseudoElement';
+        this.nowSelector.push(`::${value}`);
+        return this;
     },
 
-    combine: function(selector1, combinator, selector2) {
-        throw new Error('Not implemented');
+    combine: function(firstSelector, combinator, secondSelector) {
+        this.combinators.push(` ${combinator} `);
+        return this;
     },
+
+    stringify() {
+        let result = [];
+        for (let i = 0; i < this.arrayOfSelectors.length; i++) {
+          result.push(this.arrayOfSelectors[i], this.combinators.pop());
+        }
+        result.push(this.nowSelector.join(''));
+        this.nowSelector = [];
+        this.arrayOfSelectors = [];
+        this.prevValue = '';
+        return result.join('');
+      },
+
+      moreOneTimeError() {
+        throw new Error(
+          'Element, id and pseudo-element should not occur more then one time inside the selector',
+        );
+      },
+
+      orderError() {
+        this.prevValue = '';
+        throw new Error(
+          'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+        );
+      },
 };
 
 
