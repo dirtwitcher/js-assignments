@@ -26,9 +26,10 @@
  *
  */
 function getComposition(f,g) {
-    throw new Error('Not implemented');
+    return function(x){
+        return f(g(x))
+    };
 }
-
 
 /**
  * Returns the math power function with the specified exponent
@@ -47,9 +48,10 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    throw new Error('Not implemented');
+    return function(x){
+        return Math.pow(x,exponent);
+    }
 }
-
 
 /**
  * Returns the polynom function of one argument based on specified coefficients.
@@ -65,9 +67,16 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom() {
-    throw new Error('Not implemented');
+    let args = arguments;
+    if (args.length == null)
+        return null;
+    return function(x) {
+        let result = 0;
+        for (let i = 0; i < args.length; i++)
+            result += args[i] * Math.pow(x, args.length - i - 1);
+        return result;
+    };
 }
-
 
 /**
  * Memoizes passed function and returns function
@@ -84,9 +93,11 @@ function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 function memoize(func) {
-    throw new Error('Not implemented');
+    let result = func();
+    return function(result){
+        return result;
+    }
 }
-
 
 /**
  * Returns the function trying to call the passed function and if it throws,
@@ -104,15 +115,27 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-    throw new Error('Not implemented');
+    let count = 0;
+    return function re(...args) {
+        try{
+            return func(...args)
+        }
+        catch(err) {
+            if (count >= attempts) {
+                throw err
+            } else {
+                count ++;
+                return re(...args)
+            }
+        }
+    } 
 }
-
 
 /**
  * Returns the logging wrapper for the specified method,
  * Logger has to log the start and end of calling the specified function.
  * Logger has to log the arguments of invoked function.
- * The fromat of output log is:
+ * The format of output log is:
  * <function name>(<arg1>, <arg2>,...,<argN>) starts
  * <function name>(<arg1>, <arg2>,...,<argN>) ends
  *
@@ -132,9 +155,14 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-    throw new Error('Not implemented');
+    return function(...args){
+        let funcTemp = `${func.name}(${JSON.stringify(args).slice(1, -1)})`;
+        logFunc(`${funcTemp} starts`);
+        let result = func(...args);
+        logFunc(`${funcTemp} ends`);
+        return result;
+      };
 }
-
 
 /**
  * Return the function with partial applied arguments
@@ -150,9 +178,11 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn) {
-    throw new Error('Not implemented');
+    let args = Array.from(arguments).slice(1);
+    return function() {
+        return fn.apply(null, args.concat(Array.from(arguments)));
+    };
 }
-
 
 /**
  * Returns the id generator function that returns next integer starting from specified number every time when invoking.
@@ -171,7 +201,10 @@ function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-    throw new Error('Not implemented');
+    return function(){
+        startFrom++;
+        return startFrom - 1;
+    };
 }
 
 
