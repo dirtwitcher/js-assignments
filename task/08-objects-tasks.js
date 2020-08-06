@@ -119,7 +119,7 @@ const cssSelectorBuilder = {
     prevValue: '',
 
     element: function(value) {
-        if (this.prevValue == 'element') {
+        if (this.prevValue === 'element') {
           this.moreOneTimeError();
         } else if (this.prevValue === 'id' && value !== 'img' && value !== 'tr') {
           this.orderError();
