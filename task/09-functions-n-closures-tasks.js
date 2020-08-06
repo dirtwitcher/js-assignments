@@ -68,7 +68,7 @@ function getPowerFunction(exponent) {
  */
 function getPolynom() {
     let args = arguments;
-    if (args.length == null)
+    if (args.length === null)
         return null;
     return function(x) {
         let result = 0;
