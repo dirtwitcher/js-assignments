@@ -88,6 +88,9 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
+    if (b === 0){
+        return b / a;
+    }
     return -b / a;
 }
 
@@ -125,7 +128,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    return value.toString().slice(-1);
+    return parseInt(value.toString().slice(-1));
 }
 
 /**
@@ -199,8 +202,8 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) { 
-    for(var i = 2; i < n; i++)
-        if(n % i == 0) return false;
+    for(let i = 2; i < n; i++)
+        if(n % i === 0) return false;
     return n > 1;
 }
 
@@ -220,9 +223,9 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if (parseFloat(value) > -Infinity && parseFloat(value) < Infinity) 
+    if (parseFloat(value) > -Infinity && parseFloat(value) < Infinity){
         return parseFloat(value)
-    else
+    }
         return def;
 }
 

@@ -84,10 +84,8 @@ function timeSpanToString(startDate, endDate) {
    }
    else if (hours < 10 ){
       return `0${hours}${dateStr.slice(2)}`;
-   } else {
-      return `${hours}${dateStr.slice(2)}`;
    }
-      
+      return `${hours}${dateStr.slice(2)}`; 
 }
 
 /**

@@ -201,25 +201,25 @@ function getRectangleString(width, height) {
 
     for (let i=0; i<height; i++) {
         
-        if (i == 0) {
+        if (i === 0) {
             str = str + '┌';    
-        } else if (i == height-1) {
+        } else if (i === height-1) {
             str = str + '└';
         } else {
             str = str + '│';
         }
         
         for (let j=0; j<width-2; j++) {
-            if ((i == 0) || (i == height-1)) {
+            if ((i === 0) || (i === height-1)) {
                 str = str + '─';
             } else {
                 str = str + ' ';
             }    
         }
 
-        if (i == 0) {
+        if (i === 0) {
             str = str + '┐\n';    
-        } else if (i == height-1) {
+        } else if (i === height-1) {
             str = str + '┘\n';
         } else {
             str = str + '│\n';
@@ -263,7 +263,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */ 
 function isString(value) {
-       return (typeof(value) == 'string' || value instanceof String) ? true : false;
+       return (typeof(value) === 'string' || value instanceof String) ? true : false;
 }
 
 /**

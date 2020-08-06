@@ -91,7 +91,7 @@ function getArrayOfPositives(arr) {
  */
 function getArrayOfStrings(arr) {
    return arr.filter((el) => {
-      if (typeof el == 'string'){
+      if (typeof el === 'string'){
          return el;
       }
    })
@@ -215,9 +215,10 @@ function getTail(arr, n) {
  */
 function toCsvText(arr) {
    return arr.map((el, index)=>{
-      if (index == arr.length-1){
+      if (index === arr.length-1){
          return el.join();
-      } else return el.join()+'\n';
+      } 
+      return el.join()+'\n';
    }).join('');
 }
 
@@ -255,15 +256,12 @@ function toArrayOfSquares(arr) {
 function getMovingSum(arr) {
    let newEl = arr[0];
    return arr.map((el, index)=>{
-      if (index==0) {
+      if (index === 0) {
          return arr[0];
       } 
-       else
-      {
          el += newEl;
          newEl = el;
          return el; 
-      }
    })
 }
 
@@ -281,7 +279,7 @@ function getMovingSum(arr) {
 function getSecondItems(arr) {
    let newArr = new Array();
    arr.filter((el,index)=>{
-      if(index % 2 != 0) {
+      if(index % 2 !== 0) {
          newArr.push(el);
       }
    })
@@ -326,11 +324,11 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-   // let newArr = new Array(3);
    arr.reverse();
    if (arr.length<=3) {
       return arr;
-   } else return arr.slice(0, 3);
+   } 
+   return arr.slice(0, 3);
 }
  
 /**  
@@ -349,7 +347,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
    let count = 0;
    arr.map((el)=>{
-      if (el>0 && typeof el == 'number') count++;
+      if (el>0 && typeof el === 'number') count++;
    })
    return count;
 }
@@ -431,7 +429,7 @@ function findAllOccurences(arr, item) {
    arr.map((el)=>{
       if (el === item) count++;
    })
-   return count;;
+   return count;
 }
 
 /**
@@ -477,10 +475,10 @@ function sortCitiesArray(arr) {
    return arr.sort((a,b)=>{
       if(a.country > b.country) return 1
       else if(a.country < b.country) return -1
-      else if(a.country == b.country) {
+      else if(a.country === b.country) {
          if(a.city > b.city) return 1
          else if(a.city < b.city) return -1
-         else return 0;
+         return 0;
       }
    });
 }
@@ -654,7 +652,7 @@ function getElementByIndexes(arr, indexes) {
 function swapHeadAndTail(arr) {
    let headArr = arr.slice(0,arr.length/2);
    let tailArr = arr.slice(-arr.length/2);
-   if (arr.length % 2 != 0 && arr.length > 1) {
+   if (arr.length % 2 !== 0 && arr.length > 1) {
       return arr = [...tailArr, arr[Math.floor(arr.length / 2)], ...headArr];
   }
    return arr = [...tailArr, ...headArr];
