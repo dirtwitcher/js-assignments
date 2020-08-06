@@ -30,13 +30,13 @@
  *
  */
 function getFizzBuzz(num) {
-    if (num % 3 == 0 && num % 5 != 0) {
+    if (num % 3 === 0 && num % 5 !== 0) {
         return 'Fizz';
-    } else if (num % 3 != 0 && num % 5 == 0) {
+    } else if (num % 3 !== 0 && num % 5 === 0) {
         return 'Buzz';
-    } else if (num % 3 == 0 && num % 5 == 0) {
+    } else if (num % 3 === 0 && num % 5 === 0) {
         return 'FizzBuzz';
-    } else return num;
+    } return num;
 }
 
 /**
@@ -93,9 +93,9 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if (a**2 + b**2 == c**2 || a**2 + c**2 == b**2 || b**2 + c**2 == a**2 || (a==b && b==c)){
+    if (a**2 + b**2 === c**2 || a**2 + c**2 === b**2 || b**2 + c**2 === a**2 || (a === b && b === c)){
         return true;
-    } else return false;
+    } return false;
 }
 
 /**
@@ -191,7 +191,7 @@ function isInsideCircle(circle, point) {
 function findFirstSingleChar(str) {
     for (let i = 0; i < str.length; i++) {
         let c = str.charAt(i);
-        if (str.indexOf(c) == i && str.indexOf(c, i + 1) == -1) {
+        if (str.indexOf(c) === i && str.indexOf(c, i + 1) === -1) {
             return c;
         }
     }
@@ -226,7 +226,7 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
     else result += '(';
 
     if (a < b) result += a + ', ' + b
-    else if (a == b) result += a + ', ' + b
+    else if (a === b) result += a + ', ' + b
     else result += b + ', ' + a;
 
     if (isEndIncluded) result += ']' 
@@ -307,7 +307,7 @@ function isCreditCardNumber(ccn) {
         even = !even;
     }
 
-    return (sum % 10) == 0;
+    return (sum % 10) === 0;
 }
 
 /**
@@ -334,7 +334,7 @@ function getDigitalRoot(num) {
     }
 
     if (sum > 9) return getDigitalRoot(sum)
-    else return sum;
+    return sum;
 }
 
 /**
@@ -365,48 +365,48 @@ function isBracketsBalanced(str) {
     let br4 = 0; // <>
 
     for (let i = 0; i < str.length; i++){
-        if (str.charAt(i) == '{') { 
+        if (str.charAt(i) === '{') { 
             br1++;
             continue;
         }
-        if (str.charAt(i) == '}'){
-            if (str.charAt(i-1)=='{'){
+        if (str.charAt(i) === '}'){
+            if (str.charAt(i-1) === '{'){
                 br1--; 
                 str = str.slice(0,i-1) + str.slice(i+1);
                 i -= 2;
                 continue;
             } else return false; 
         }
-        if (str.charAt(i) == '(') {
+        if (str.charAt(i) === '(') {
             br2++;
             continue;
         }
-        if (str.charAt(i) == ')'){
-            if (str.charAt(i-1)=='('){
+        if (str.charAt(i) === ')'){
+            if (str.charAt(i-1) === '('){
                 br2--; 
                 str = str.slice(0,i-1) + str.slice(i+1);
                 i -= 2;
                 continue;
             } else return false;
         }
-        if (str.charAt(i) == '[') {
+        if (str.charAt(i) === '[') {
             br3++;
             continue;
         }
-        if (str.charAt(i) == ']'){
-            if (str.charAt(i-1)=='['){
+        if (str.charAt(i) === ']'){
+            if (str.charAt(i-1) === '['){
                 br3--; 
                 str = str.slice(0,i-1) + str.slice(i+1);
                 i -= 2;
                 continue;
             } else return false;
         }
-        if (str.charAt(i) == '<') {
+        if (str.charAt(i) === '<') {
             br4++;
             continue;
         }
-        if (str.charAt(i) == '>'){
-            if (str.charAt(i-1)=='<'){
+        if (str.charAt(i) === '>'){
+            if (str.charAt(i-1) === '<'){
                 br4--; 
                 str = str.slice(0,i-1) + str.slice(i+1);
                 i -= 2;
@@ -415,7 +415,7 @@ function isBracketsBalanced(str) {
         }
         if (br1 < 0 || br2 < 0 || br3 < 0 || br4 < 0 ) return false;
     }
-    return (br1 == 0 && br2 == 0 && br3 == 0 && br4 == 0 );
+    return (br1 === 0 && br2 === 0 && br3 === 0 && br4 === 0 );
 }
 
 /**
@@ -461,45 +461,35 @@ function timespanToHumanString(startDate, endDate) {
     if (days >= 546) {
         let str = '' + years;
         str = str.slice(str.indexOf('.')+1);
-        if (str == '5') 
-        return `${Math.floor(years)} years ago`;
-        else 
+        if (str === '5') return `${Math.floor(years)} years ago`;
         return `${Math.round(years)} years ago`;
     }
     if (days > 345 && days < 545) return 'a year ago';
     if (days > 45 && days <= 345) {
         let str = '' + months;
         str = str.slice(str.indexOf('.')+1);
-        if (str == '5') 
-        return `${Math.floor(months)} months ago`;
-        else 
+        if (str === '5') return `${Math.floor(months)} months ago`;
         return `${Math.round(months)} months ago`;
     }
     if (days > 25 && days <= 45) return 'a month ago';
     if (hours > 36 && days <= 245) {
         let str = '' + days;
         str = str.slice(str.indexOf('.')+1);
-        if (str == '5') 
-        return `${Math.floor(days)} days ago`
-        else 
+        if (str === '5') return `${Math.floor(days)} days ago`
         return `${Math.round(days)} days ago`;
     }
     if (hours > 22 && hours <= 36) return 'a day ago';
     if (minutes > 90 && hours <= 22) {
         let str = '' + hours;
         str = str.slice(str.indexOf('.')+1);
-        if (str == '5') 
-        return `${Math.floor(hours)} hours ago`
-        else 
+        if (str === '5') return `${Math.floor(hours)} hours ago`
         return `${Math.round(hours)} hours ago`;
     }
     if (minutes > 45 && minutes <= 90) return 'an hour ago';
     if (seconds > 90 && minutes <= 45) {
         let str = '' + minutes;
         str = str.slice(str.indexOf('.')+1);
-        if (str == '5') 
-        return `${Math.floor(minutes)} minutes ago`
-        else 
+        if (str === '5') return `${Math.floor(minutes)} minutes ago`
         return `${Math.round(minutes)} minutes ago`;
     }
     if (seconds > 45 && seconds <= 90) return 'a minute ago';
