@@ -121,7 +121,7 @@ const cssSelectorBuilder = {
     element: function(value) {
         if (this.prevValue == 'element') {
           this.moreOneTimeError();
-        } else if (this.prevValue == 'id' && value != 'img' && value != 'tr') {
+        } else if (this.prevValue === 'id' && value !== 'img' && value !== 'tr') {
           this.orderError();
         }
         this.prevValue = 'element';
@@ -135,10 +135,10 @@ const cssSelectorBuilder = {
     },
 
     id: function(value) {
-        if (this.prevValue == 'id') {
+        if (this.prevValue === 'id') {
           this.moreOneTimeError();
-        } else if (this.prevValue == 'class' || this.prevValue == 'attr' 
-                || this.prevValue == 'pseudoClass' || this.prevValue == 'pseudoElement') {
+        } else if (this.prevValue === 'class' || this.prevValue === 'attr' 
+                || this.prevValue === 'pseudoClass' || this.prevValue === 'pseudoElement') {
           this.orderError();
         }
         this.prevValue = 'id';
@@ -147,7 +147,7 @@ const cssSelectorBuilder = {
     },
 
     class: function(value) {
-        if (this.prevValue == 'attr' || this.prevValue == 'pseudoClass') {
+        if (this.prevValue === 'attr' || this.prevValue === 'pseudoClass') {
           this.orderError();
         }
         this.prevValue = 'class';
@@ -156,7 +156,7 @@ const cssSelectorBuilder = {
     },
 
     attr: function(value) {
-        if (this.prevValue == 'pseudoClass') {
+        if (this.prevValue === 'pseudoClass') {
           this.orderError();
         }
         this.prevValue = 'attr';
@@ -165,7 +165,7 @@ const cssSelectorBuilder = {
     },
 
     pseudoClass: function(value) {
-        if (this.prevValue == 'pseudoElement') {
+        if (this.prevValue === 'pseudoElement') {
           this.orderError();
         }
         this.prevValue = 'pseudoClass';
@@ -174,7 +174,7 @@ const cssSelectorBuilder = {
     },
 
     pseudoElement: function(value) {
-        if (this.prevValue == 'pseudoElement') {
+        if (this.prevValue === 'pseudoElement') {
           this.moreOneTimeError();
         }
         this.prevValue = 'pseudoElement';
