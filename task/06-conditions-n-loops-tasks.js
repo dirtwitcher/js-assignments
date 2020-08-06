@@ -544,7 +544,7 @@ function getCommonDirectoryPath(pathes) {
     let bufResult = '';
     for(let i=1; i < pathes.length; i++){
         for(let j=0; j < pathes[i].length; j++){
-            if(pathes[i][j] == resultStr[j]){
+            if(pathes[i][j] === resultStr[j]){
                 bufResult += pathes[i][j];
             } else {
                 break;
@@ -579,14 +579,14 @@ function getMatrixProduct(m1, m2) {
     let rowsM2 = m2.length, colsM2 = m2[0].length;
     let m3 = [];
 
-    if (colsM1 != rowsM2) return false;
+    if (colsM1 !== rowsM2) return false;
 
     for (let i = 0; i < rowsM1; i++) m3[i] = [];
 
     for (let k = 0; k < colsM2; k++) {
         for (let i = 0; i < rowsM1; i++) {
-            var temp = 0;
-            for (var j = 0; j < rowsM2; j++) temp += m1[i][j] * m2[j][k];
+            let temp = 0;
+            for (let j = 0; j < rowsM2; j++) temp += m1[i][j] * m2[j][k];
             m3[i][k] = temp;
         }
     }
@@ -624,23 +624,23 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    if ((position[0][0] == 'X' && position[0][1] == 'X' && position[0][2] == 'X') ||
-        (position[1][0] == 'X' && position[1][1] == 'X' && position[1][2] == 'X') ||
-        (position[2][0] == 'X' && position[2][1] == 'X' && position[2][2] == 'X') ||
-        (position[0][0] == 'X' && position[1][0] == 'X' && position[2][0] == 'X') ||
-        (position[0][1] == 'X' && position[1][1] == 'X' && position[2][1] == 'X') ||
-        (position[0][2] == 'X' && position[1][2] == 'X' && position[2][2] == 'X') ||
-        (position[0][0] == 'X' && position[1][1] == 'X' && position[2][2] == 'X') ||
-        (position[2][0] == 'X' && position[1][1] == 'X' && position[0][2] == 'X')) return 'X'
-    else if ((position[0][0] == '0' && position[0][1] == '0' && position[0][2] == '0') ||
-             (position[1][0] == '0' && position[1][1] == '0' && position[1][2] == '0') ||
-             (position[2][0] == '0' && position[2][1] == '0' && position[2][2] == '0') ||
-             (position[0][0] == '0' && position[1][0] == '0' && position[2][0] == '0') ||
-             (position[0][1] == '0' && position[1][1] == '0' && position[2][1] == '0') ||
-             (position[0][2] == '0' && position[1][2] == '0' && position[2][2] == '0') ||
-             (position[0][0] == '0' && position[1][1] == '0' && position[2][2] == '0') ||
-             (position[2][0] == '0' && position[1][1] == '0' && position[0][2] == '0')) return '0'
-    else return undefined;
+    if ((position[0][0] === 'X' && position[0][1] === 'X' && position[0][2] === 'X') ||
+        (position[1][0] === 'X' && position[1][1] === 'X' && position[1][2] === 'X') ||
+        (position[2][0] === 'X' && position[2][1] === 'X' && position[2][2] === 'X') ||
+        (position[0][0] === 'X' && position[1][0] === 'X' && position[2][0] === 'X') ||
+        (position[0][1] === 'X' && position[1][1] === 'X' && position[2][1] === 'X') ||
+        (position[0][2] === 'X' && position[1][2] === 'X' && position[2][2] === 'X') ||
+        (position[0][0] === 'X' && position[1][1] === 'X' && position[2][2] === 'X') ||
+        (position[2][0] === 'X' && position[1][1] === 'X' && position[0][2] === 'X')) return 'X'
+    else if ((position[0][0] === '0' && position[0][1] === '0' && position[0][2] === '0') ||
+             (position[1][0] === '0' && position[1][1] === '0' && position[1][2] === '0') ||
+             (position[2][0] === '0' && position[2][1] === '0' && position[2][2] === '0') ||
+             (position[0][0] === '0' && position[1][0] === '0' && position[2][0] === '0') ||
+             (position[0][1] === '0' && position[1][1] === '0' && position[2][1] === '0') ||
+             (position[0][2] === '0' && position[1][2] === '0' && position[2][2] === '0') ||
+             (position[0][0] === '0' && position[1][1] === '0' && position[2][2] === '0') ||
+             (position[2][0] === '0' && position[1][1] === '0' && position[0][2] === '0')) return '0'
+    return undefined;
 }
 
 
