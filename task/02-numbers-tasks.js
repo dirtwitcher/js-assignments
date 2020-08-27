@@ -53,7 +53,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    return value1/2 + value2/2;
+    return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -72,7 +72,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt((x2-x1)**2+(y2-y1)**2);
+    return Math.hypot(x2 - x1, y2 - y1);
 }
 
 /**
@@ -88,7 +88,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    if (b === 0){
+    if (b === 0) {
         return b / a;
     }
     return -b / a;
@@ -160,7 +160,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a,b,c) {
-    return Math.sqrt(a**2 + b**2 + c**2);
+    return Math.hypot(a, b, c);
 }
 
 /**
@@ -223,7 +223,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    if (parseFloat(value) > -Infinity && parseFloat(value) < Infinity){
+    if (parseFloat(value) > -Infinity && parseFloat(value) < Infinity) {
         return parseFloat(value)
     }
         return def;

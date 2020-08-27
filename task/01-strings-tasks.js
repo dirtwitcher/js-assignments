@@ -67,7 +67,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.slice(7,value.length-1);
+    return value.slice(7, -1);
 }
 
 /**
@@ -127,7 +127,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    return str.slice(0,str.indexOf(value)) + str.slice(str.indexOf(value)+value.length, str.length);
+    return str.slice(0, str.indexOf(value)) + str.slice(str.indexOf(value) + value.length, str.length);
 }
 
 /**
@@ -142,7 +142,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    return str.slice(1,str.length-1);
+    return str.slice(1, -1);
 }
 
 /**
@@ -199,18 +199,18 @@ function extractEmails(str) {
 function getRectangleString(width, height) {
     let str = '';
 
-    for (let i=0; i<height; i++) {
+    for (let i = 0; i < height; i++) {
         
         if (i === 0) {
             str = str + '┌';    
-        } else if (i === height-1) {
+        } else if (i === height - 1) {
             str = str + '└';
         } else {
             str = str + '│';
         }
         
-        for (let j=0; j<width-2; j++) {
-            if ((i === 0) || (i === height-1)) {
+        for (let j = 0; j < width - 2; j++) {
+            if ((i === 0) || (i === height - 1)) {
                 str = str + '─';
             } else {
                 str = str + ' ';
@@ -219,7 +219,7 @@ function getRectangleString(width, height) {
 
         if (i === 0) {
             str = str + '┐\n';    
-        } else if (i === height-1) {
+        } else if (i === height - 1) {
             str = str + '┘\n';
         } else {
             str = str + '│\n';
@@ -263,7 +263,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */ 
 function isString(value) {
-       return (typeof(value) === 'string' || value instanceof String) ? true : false;
+       return (typeof(value) === 'string' || value instanceof String);
 }
 
 /**
@@ -292,15 +292,15 @@ function isString(value) {
  */
 function getCardId(value) {
     let elem = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-    switch(value.slice(value.length-1)){
+    switch (value.slice(value.length - 1)) {
     case '♣':
-        return elem.indexOf(value.slice(0,value.length-1));
+        return elem.indexOf(value.slice(0, -1));
     case '♦':
-        return elem.indexOf(value.slice(0,value.length-1)) + 13;
+        return elem.indexOf(value.slice(0, -1)) + 13;
     case '♥':
-        return elem.indexOf(value.slice(0,value.length-1)) + 26;
+        return elem.indexOf(value.slice(0, -1)) + 26;
     case '♠':
-        return elem.indexOf(value.slice(0,value.length-1)) + 39;
+        return elem.indexOf(value.slice(0, -1)) + 39;
     }
 }
 
