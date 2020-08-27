@@ -33,7 +33,7 @@
  *
  */
 function* get99BottlesOfBeer() {
-    for(let i=99; i>1; i--){
+    for(let i = 99; i > 1; i--){
         yield `${i} bottles of beer on the wall, ${i} bottles of beer.`
         if (i-1 === 1){
             yield `Take one down and pass it around, ${1} bottle of beer on the wall.`
@@ -43,7 +43,7 @@ function* get99BottlesOfBeer() {
             yield 'Go to the store and buy some more, 99 bottles of beer on the wall.'
             return
         }
-        yield `Take one down and pass it around, ${i-1} bottles of beer on the wall.`
+        yield `Take one down and pass it around, ${i - 1} bottles of beer on the wall.`
     }
 }
 
@@ -65,7 +65,7 @@ function* getFibonacciSequence() {
     yield 0;
     yield 1;     
     
-    while (i > 2){
+    while (i > 2) {
         yield next;
         last = current;
         current = next;
