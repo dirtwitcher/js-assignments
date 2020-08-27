@@ -93,9 +93,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if (a**2 + b**2 === c**2 || a**2 + c**2 === b**2 || b**2 + c**2 === a**2 || (a === b && b === c)){
-        return true;
-    } return false;
+    return (a**2 + b**2 === c**2 || a**2 + c**2 === b**2 || b**2 + c**2 === a**2 || (a === b && b === c));
 }
 
 /**
@@ -191,7 +189,7 @@ function isInsideCircle(circle, point) {
 function findFirstSingleChar(str) {
     for (let i = 0; i < str.length; i++) {
         let c = str.charAt(i);
-        if (str.indexOf(c) === i && str.indexOf(c, i + 1) === -1) {
+        if (str.indexOf(c) === str.lastIndexOf(c)) {
             return c;
         }
     }
@@ -249,7 +247,6 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  */
 function reverseString(str) {
     let arr = new Array();
-    str = '' + str;             // for reverseInteger() below =)
     arr = str.split('');
     arr.reverse();
     return arr.join('');
@@ -268,7 +265,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    return reverseString(num);
+    return parseFloat(num.toString().split('').reverse().join('')) * Math.sign(num);
 }
 
 /**
@@ -364,15 +361,15 @@ function isBracketsBalanced(str) {
     let br3 = 0; // []
     let br4 = 0; // <>
 
-    for (let i = 0; i < str.length; i++){
-        if (str.charAt(i) === '{') { 
+    for (let i = 0; i < str.length; i++) {
+        if (str.charAt(i) === '{') {
             br1++;
             continue;
         }
-        if (str.charAt(i) === '}'){
-            if (str.charAt(i-1) === '{'){
+        if (str.charAt(i) === '}') {
+            if (str.charAt(i - 1) === '{') {
                 br1--; 
-                str = str.slice(0,i-1) + str.slice(i+1);
+                str = str.slice(0, i - 1) + str.slice(i + 1);
                 i -= 2;
                 continue;
             } else return false; 
@@ -381,10 +378,10 @@ function isBracketsBalanced(str) {
             br2++;
             continue;
         }
-        if (str.charAt(i) === ')'){
-            if (str.charAt(i-1) === '('){
-                br2--; 
-                str = str.slice(0,i-1) + str.slice(i+1);
+        if (str.charAt(i) === ')') {
+            if (str.charAt(i - 1) === '(') {
+                br2--;
+                str = str.slice(0, i - 1) + str.slice(i + 1);
                 i -= 2;
                 continue;
             } else return false;
@@ -393,10 +390,10 @@ function isBracketsBalanced(str) {
             br3++;
             continue;
         }
-        if (str.charAt(i) === ']'){
-            if (str.charAt(i-1) === '['){
-                br3--; 
-                str = str.slice(0,i-1) + str.slice(i+1);
+        if (str.charAt(i) === ']') {
+            if (str.charAt(i - 1) === '[') {
+                br3--;
+                str = str.slice(0, i - 1) + str.slice(i + 1);
                 i -= 2;
                 continue;
             } else return false;
@@ -405,17 +402,17 @@ function isBracketsBalanced(str) {
             br4++;
             continue;
         }
-        if (str.charAt(i) === '>'){
-            if (str.charAt(i-1) === '<'){
-                br4--; 
-                str = str.slice(0,i-1) + str.slice(i+1);
+        if (str.charAt(i) === '>') {
+            if (str.charAt(i-1) === '<') {
+                br4--;
+                str = str.slice(0, i - 1) + str.slice(i + 1);
                 i -= 2;
                 continue;
             } else return false;
         }
         if (br1 < 0 || br2 < 0 || br3 < 0 || br4 < 0 ) return false;
     }
-    return (br1 === 0 && br2 === 0 && br3 === 0 && br4 === 0 );
+    return (br1 === 0 && br2 === 0 && br3 === 0 && br4 === 0);
 }
 
 /**
@@ -449,7 +446,6 @@ function isBracketsBalanced(str) {
  *   Date('2000-01-01 01:00:00.100'), Date('2015-01-02 03:00:05.000')  => '15 years ago'
  *
  */
-// странное у вас округление по тестам. 5.5 к 5, а не к 6
 function timespanToHumanString(startDate, endDate) {
     let seconds = Math.abs((startDate.getTime() - endDate.getTime()) / 1000);
     let minutes = seconds / 60;
@@ -516,14 +512,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    let abc="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
-    let s = '';
-	let mas = abc.slice(0,n);
-	while(num > 0){
-		s = String(s) + mas[num%n];
-		num = Math.floor(num/n);
-	}
-    return s.split('').reverse().join('');
+    return num.toString(n);
 }
 
 /**
@@ -542,8 +531,8 @@ function getCommonDirectoryPath(pathes) {
     let specChr = 0;
     let resultStr = pathes[0];
     let bufResult = '';
-    for(let i=1; i < pathes.length; i++){
-        for(let j=0; j < pathes[i].length; j++){
+    for(let i = 1; i < pathes.length; i++){
+        for(let j = 0; j < pathes[i].length; j++){
             if(pathes[i][j] === resultStr[j]){
                 bufResult += pathes[i][j];
             } else {
@@ -553,7 +542,7 @@ function getCommonDirectoryPath(pathes) {
         resultStr = bufResult;
         bufResult = '';
     }
-    return resultStr.slice(0,resultStr.lastIndexOf('/')+1);
+    return resultStr.slice(0, resultStr.lastIndexOf('/') + 1);
 }
 
 /**
